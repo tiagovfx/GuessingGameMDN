@@ -46,6 +46,41 @@
     </div>
 
     <script>
+      function checkGuess () {
+        const userGuess = Number(guessField.value);
+        if (guessCount === 1 ) {
+          guesses.textContent = "Tentativas anteriores: ";
+        }
+        guesses.textContent = `${guesses.textContent} ${userGuess}`;
+        
+        if (userGuess === generatedNumber) {
+          lastResult.textContent = "Parabéns, você ganhou!!!";
+          lastResult.style.backgroundColor = "green";
+          lowOrHi.textContent = "";
+          setGameOver ();
+        }  
+        else if (guessCount === 10 ) {
+          lastResult.textContent = "Perdeu :c";
+          lowOrHi = "";
+          setGameOver ();
+        }
+        else {
+          lastResult.textContent = "Errou!";
+          lastResult.style.backgroundColor = "red";
+          if (userGuess < generatedNumber) {
+            lowOrHi.textContent = "O número correto está acima";
+          }
+          else if (userGuess > generatedNumber) {
+              lowOrHi.textContent = "O número correto está abaixo";
+            }
+        }
+        
+        guessCount++;
+        guessField.value = "";
+        guessField.focus ();
+        
+      }
+
         let generatedNumber = Math.floor(Math.random()*100) + 1;
         const guesses = document.querySelector(".guesses");
         const lastResult = document.querySelector(".lastResult");
@@ -57,7 +92,7 @@
         let guessCount = 1;
         let resetButton;
 
-        
+
     </script>
   </body>
 </html>
